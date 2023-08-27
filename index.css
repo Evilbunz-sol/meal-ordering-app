@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    font-family: 'Smythe', Verdana, cursive;
+} 
+
+header{
+    background-image: url("/images/banner.jpeg");
+    width: 600px;
+    height: 167px;
+    background-position: top -153px center;
+}
+
+h1{
+    margin: 0;
+    font-size: 39px;
+}
+
+h2{
+    margin: 0;
+    font-size: 22px;
+}
+
+.hero-branding{
+    color: #FFFFFF;
+    padding: 45px 0 0 45px;
+}
+
+
+
+
+.menu{
+    margin: 0 50px 0 50px;
+    padding: 40px 0 50px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #D2D2D2;
+    max-width: 500px;
+
+}
+
+.menu-items{
+    padding-left:  30px;
+}
+
+.food-image{
+    width: 70px;
+    height: 90px;
+}
+
+h3, .menu-item-price{
+   font-size: 28px; 
+   color: #000000;
+   margin-top: 8px;
+   margin-bottom: 8px;
+}
+
+.menu-item-description{
+    font-size: 16px;
+    color: #8B8B8B;
+    margin: 0;
+}
+
+.menu-item-price{
+    font-size: 20px;
+}
+
+.add-to-cart-btn{
+    border: 1px solid #DEDEDE;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background: white;
+    margin-left: auto;
+}
+
+
+
+
+.order{
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.order-section{
+    margin: 45px 0 20px 0;
+    text-align: center;
+}
+
+.order-summary{
+    margin: 0 40px 0 40px;
+    display: flex;
+}
+
+.remove-order-btn{
+    margin-top: 5px;
+    margin-right: auto;
+    font-size: 12px;
+    background: #ffffff;
+    border: none;
+    color: #BBBBBB;
+}
+
+.order-total{
+    margin: 15px 40px 0 40px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #393333;
+}
+
+.complete-order{
+    margin: 40px 0px 0 40px;
+    padding: 18px 200px;    
+    font-family: Verdana;
+    font-size: 16px;
+    background: #16DB99;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+
+
+.payment-form {  
+    position: absolute;
+    width: 340px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 4px;
+    filter: drop-shadow(5.18654px 5.18654px 255.437px rgba(0, 0, 0, 0.5));
+    display: none;
+}
+
+.payment-form-heading{
+    font-family: Verdana;
+    font-size: 24px;
+    margin: 10px 0 40px 0;
+    text-align: center; 
+}
+
+.payment-form-details{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    padding: 15px 150px 15px 15px; 
+    margin: 10px auto;
+    font-size: 16px;
+    border: 1px solid #757575;
+}
+
+.payment-button{
+    margin: 30px auto 10px auto;
+    padding: 15px 155px;    
+    font-family: Verdana;
+    font-size: 16px;
+    background: #16DB99;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+
+
+
+
+.order-confirmation{
+    max-width: 540px;
+    background: #ECFDF5;
+    color: #065F46;
+    text-align: center;
+    font-size: 32px;
+    border: none;
+    border-radius: 3px;
+    margin-left: 40px;
+    padding: 50px 0; 
+    display: none;
+}
+
