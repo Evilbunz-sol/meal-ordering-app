@@ -1,53 +1,63 @@
 import {menuArray} from '/data.js';
 
-// Event Listener
-document.addEventListener("click", function(e){
-    if(e.target.dataset.menu){
-        handleAddClick(e.target.dataset.menu)
-    } 
-    else if (e.target.dataset.remove){
-        handleRemoveClick(e.target.dataset.remove)
-    }
+const order = document.getElementById("order")
+const paymentForm = document.getElementById('payment-form')
+const paymentFormData = document.getElementById("payment-form-data")
+
+// Event Listeners
+document.addEventListener("click", e => {
+    if (e.target.dataset.menu) handleAddClick(e.target.dataset.menu)
+    else if (e.target.dataset.remove) handleRemoveClick(e.target.dataset.remove)
+    else if (e.target.id === "complete-order-btn") handlePaymentClick()  
 })
 
 
 let checkoutCart = []
 
-function handleAddClick(menuId){
-    const menuItem = menuArray.filter(function(menu){
-        return menuId == menu.id
-    })[0]
-    
+function handleAddClick(menuId) {
+    const menuItem = menuArray.filter(menu => menuId === menu.id.toString())[0]
     checkoutCart.push(menuItem)
     checkout()
-
-    document.getElementById("order").style.display = "block"
 }
-
 
 function handleRemoveClick(menuId){
-    checkoutCart = checkoutCart.filter(function(menu){
-        return menu.id != menuId
-    })
-    
-    const removeItem = document.querySelector(`[data-summary-id="${menuId}"]`)
-    
-    if (removeItem) {
-        removeItem.remove()
-    }
-    
-    if (checkoutCart.length === 0) {
-        document.getElementById("order").style.display = "none";
-    }
+    checkoutCart.splice(menuId, 1)
+    checkout()
 }
+
+function handlePaymentClick(){
+    paymentForm.style.display = "block"
+}
+
+//Form
+paymentFormData.addEventListener("submit", function(e){
+    const orderConfirmation = document.getElementById("order-confirmation")
+
+    e.preventDefault()
+    
+    const paymentFormInfo = new FormData(paymentFormData)
+    const name = paymentFormInfo.get("name")
+            
+    paymentForm.style.display = "none"
+    orderConfirmation.style.display = "block"
+    order.style.display = "none"
+
+    orderConfirmation.innerHTML = `Thanks, ${name}! Your order is on its way!`
+    })  
 
 
 // Menu Options
 function getMenu(){
-    let menuList = ""
-    
-    menuArray.forEach(function(menu){
-        menuList += `
+    return menuArray.map(menu => {
+        const {
+            name,
+            ingredients,
+            price,
+            emoji,
+            id
+        } = menu
+        
+    return `
 <section id="menu">
     <div class="menu">
         <img src="${menu.emoji}" class="food-image">
@@ -58,28 +68,28 @@ function getMenu(){
             </div>
             <button class="add-to-cart-btn" id="add-to-cart-btn" data-menu="${menu.id}">+</button>
     </div>
-</section>
-        `
-    })
+</section>`      
+    }).join("")
+
     return menuList
 }
 
 
 // Checkout Cart
-function checkout(){
-    
-    let orderSummary = 
-`<section id="order">
-    <div class="order">
-    <h3 class="order-section">Your Order</h3>`
+function checkout(){  
+    if (checkoutCart.length){
+       let orderSummary = 
+            `<section id="order">
+            <div class="order">
+            <h3 class="order-section">Your Order</h3>`
 
     let total = 0
     
-    checkoutCart.forEach(function(menu){
+    checkoutCart.forEach((menu, index) => {
         orderSummary += `
-        <div class="order-summary" data-summary-id="${menu.id}"> 
+        <div class="order-summary""> 
             <h3> ${menu.name} </h3>
-            <button class="remove-order-btn" id="remove-order-btn" data-remove="${menu.id}"> Remove </button>
+            <button class="remove-order-btn" id="remove-order-btn" data-remove="${index}"> Remove </button>
             <p>  $${menu.price} </p>
         </div>`
         
@@ -96,48 +106,12 @@ function checkout(){
         </section>`
 
     document.getElementById("order").innerHTML = orderSummary
-    
-    
-    
-// Form
-    const paymentForm = document.getElementById('payment-form')
-    const paymentFormData = document.getElementById("payment-form-data")
-    const orderConfirmation = document.getElementById("order-confirmation")
 
-
-        const completeOrderBtn = document.getElementById ("complete-order-btn")
-        completeOrderBtn.addEventListener("click", function(){
-            paymentForm.style.display = "block"
-        })
-
-        paymentFormData.addEventListener("submit", function(e){
-            e.preventDefault()
-            
-            const paymentFormInfo = new FormData(paymentFormData)
-            const name = paymentFormInfo.get("name")
-            
-            paymentForm.style.display = "none"
-            orderConfirmation.style.display = "block"
-            order.style.display = "none"
-
-            orderConfirmation.innerHTML = `
-                Thanks, ${name}! Your order is on its way!` 
-        })  
+    } else {
+        order.innerHTML = ''
+    }
 }
 
 
 // Render Menu
-function render(){
-    document.getElementById("menu").innerHTML = getMenu()
-}
-
-render()
-
-
-
-
-
-
-
-
-
+document.getElementById("menu").innerHTML = getMenu()
